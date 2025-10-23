@@ -1,0 +1,135 @@
+body {
+  font-family: 'Segoe UI', 'Noto Sans JP', Arial, sans-serif;
+  background: #f4f6fb;
+  margin: 0;
+  color: #222;
+}
+.header {
+  background: #1976d2;
+  color: #fff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 2rem auto;
+  max-width: 1000px;
+}
+.list-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  padding: 2rem 2.5rem;
+  min-width: 500px;
+  margin-right: 2rem;
+}
+.list-card h2 {
+  margin-top: 0;
+  color: #1976d2;
+}
+.filter-export-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+  gap: 2.5rem;
+}
+.filter-panel {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+}
+.export-panel {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.filter-input, .filter-select {
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #bfc7d5;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.btn-filter {
+  background: #e3f2fd;
+  color: #0288d1;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-right: 2rem;
+}
+.btn-filter:hover {
+  background: #b3e5fc;
+}
+.btn-detail, .btn-confirm {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-detail:hover {
+  background: #1565c0;
+}
+.btn-confirm {
+  background: #1976d2;
+}
+.btn-confirm:hover {
+  background: #1565c0;
+}
+.export-panel {
+  margin-top: 1.5rem;
+}
+.btn-export {
+  background: #e3eaf7;
+  color: #0288d1;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  margin-right: 0.7rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-export:hover {
+  background: #bbdefb;
+}
+.info-panel {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 1.5rem;
+  min-width: 200px;
+  font-size: 1rem;
+}
+.info-panel div {
+  margin-bottom: 1rem;
+}
+.badge {
+  background: #1976d2;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.2rem 0.8rem;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+.footer {
+  background: #f0f4fa;
+  color: #888;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: 3rem;
+  font-size: 0.95rem;
+  border-top: 1px solid #e0e5ec;
+}

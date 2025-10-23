@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン画面 (SRC0001)</title>
+  <link rel="stylesheet" href="SRC0001.css">
+</head>
+<body>
+  <header class="header">
+    <h1>POSログイン</h1>
+    <!-- 店舗・端末ID・IP情報は共通レイアウト(header/footer)で表示推奨
+      例: 店舗: 新宿店 | 端末ID: POS-001 | IP: 192.168.1.10
+      ※ 本画面では非表示。必要時は layout.html などで管理してください。
+    -->
+  </header>
+  <main class="main-content">
+    <section class="login-card">
+      <h2>ユーザー認証</h2>
+      <form class="login-form">
+        <div class="form-group">
+          <label for="username">ユーザー名</label>
+          <input type="text" id="username" placeholder="ユーザー名を入力">
+        </div>
+        <div class="form-group">
+          <label for="password">パスワード</label>
+          <input type="password" id="password" placeholder="パスワードを入力">
+        </div>
+        <div class="form-group remember">
+          <input type="checkbox" id="remember">
+          <label for="remember">この端末を記憶する</label>
+        </div>
+        <button type="submit" class="btn-login">ログイン</button>
+      </form>
+      <div class="dev-accounts">
+        <h3>テストアカウント (開発環境)</h3>
+        <ul>
+          <li><button class="dev-account-btn">testuser1</button></li>
+          <li><button class="dev-account-btn">testuser2</button></li>
+          <li><button class="dev-account-btn">admin</button></li>
+        </ul>
+      </div>
+    </section>
+    <!-- aside class="info-panel" は削除 -->
+  </main>
+  <footer class="footer">
+    <small>&copy; 2025 POS System Demo</small>
+  </footer>
+</body>
+</html>

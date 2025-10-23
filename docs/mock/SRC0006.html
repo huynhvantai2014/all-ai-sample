@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>売上・税レポート画面 (SRC0006)</title>
+  <link rel="stylesheet" href="SRC0006.css">
+</head>
+<body>
+  <header class="header">
+    <h1>売上・税レポート</h1>
+  </header>
+  <main class="main-content">
+    <section class="report-card">
+      <h2>売上・税・日次レポート</h2>
+      <form class="filter-form">
+        <label for="date">日付</label>
+        <input type="date" id="date">
+        <label for="store">店舗</label>
+        <select id="store">
+          <option>新宿店</option>
+          <option>渋谷店</option>
+          <option>池袋店</option>
+        </select>
+        <button type="submit" class="btn-filter">検索</button>
+      </form>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>店舗</th>
+            <th>売上金額</th>
+            <th>消費税</th>
+            <th>取引件数</th>
+            <th>CSV</th>
+            <th>Excel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2025-10-22</td>
+            <td>新宿店</td>
+            <td>¥120,000</td>
+            <td>¥12,000</td>
+            <td>45</td>
+            <td><button class="btn-csv">CSV</button></td>
+            <td><button class="btn-excel">Excel</button></td>
+          </tr>
+          <tr>
+            <td>2025-10-22</td>
+            <td>渋谷店</td>
+            <td>¥98,000</td>
+            <td>¥9,800</td>
+            <td>38</td>
+            <td><button class="btn-csv">CSV</button></td>
+            <td><button class="btn-excel">Excel</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <footer class="footer">
+    <small>&copy; 2025 POS System Demo</small>
+  </footer>
+</body>
+</html>
