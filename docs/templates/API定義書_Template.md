@@ -27,13 +27,19 @@ API名:
 
 ## 5. 処理フロー (Luồng xử lý API)
 - 1. 入力バリデーション (Validate đầu vào):
-	- Kiểm tra định dạng, bắt buộc, kiểu dữ liệu của input
+    - Kiểm tra định dạng, bắt buộc, kiểu dữ liệu của input
+    - Nếu thiếu/bất hợp lệ: trả về mã lỗi, thông điệp lỗi
 - 2. 相関バリデーション (Validate tương quan/DB):
-	- Kiểm tra tồn tại, trùng lặp, ràng buộc dữ liệu trong DB
+    - Truy vấn bảng dữ liệu liên quan (ghi rõ tên bảng: users, orders, products...)
+    - Kiểm tra tồn tại, trùng lặp, ràng buộc dữ liệu trong DB
+    - Nếu không tồn tại hoặc vi phạm ràng buộc: trả về mã lỗi, thông điệp lỗi
 - 3. 業務処理 (Xử lý nghiệp vụ):
-	- Thực hiện logic nghiệp vụ chính của API
+    - Thực hiện logic nghiệp vụ chính của API
+    - Mô tả chi tiết các bước xử lý: if/else, điều kiện, cập nhật/truy vấn bảng dữ liệu
+    - Ví dụ: if điều kiện A thì xử lý X, else xử lý Y
 - 4. レスポンス生成 (Trả kết quả):
-	- Tạo response trả về client (thành công/lỗi)
+    - Tạo response trả về client (thành công/lỗi)
+    - Bao gồm dữ liệu lấy từ bảng nào, trạng thái, thông điệp
 
 ## 6. 備考 (Ghi chú)
 - 
