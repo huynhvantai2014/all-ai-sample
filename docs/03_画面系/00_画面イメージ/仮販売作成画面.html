@@ -2,43 +2,49 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>仮販売作成画面</title>
+  <title>仮販売作成画面 - POS</title>
   <link rel="stylesheet" href="base.css">
+  <style>
+    .order-container {
+      max-width: 480px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+    }
+    .order-title {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #1976d2;
+    }
+    .order-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      justify-content: center;
+    }
+  </style>
 </head>
 <body>
-  <header>仮販売作成</header>
-  <main class="card">
-    <h2>仮販売作成</h2>
-    <form style="margin-bottom:16px;">
-      <input type="text" placeholder="商品名・バーコード・JANで検索" required style="width:100%;margin-bottom:8px;">
-      <button type="button" style="width:100%;margin-bottom:12px;">検索</button>
-    </form>
-    <section style="margin-bottom:16px;">
-      <h3 style="font-size:1.1rem;">検索結果</h3>
-      <table class="table">
-        <thead>
-          <tr><th>商品名</th><th>価格</th><th>在庫</th><th>選択</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>冷蔵庫</td><td>¥50,000</td><td>12</td><td><button>追加</button></td></tr>
-          <tr><td>テレビ</td><td>¥80,000</td><td>5</td><td><button>追加</button></td></tr>
-          <tr><td>電子レンジ</td><td>¥15,000</td><td>8</td><td><button>追加</button></td></tr>
-        </tbody>
-      </table>
-    </section>
-    <form>
-      <input type="text" placeholder="選択商品" required style="width:100%;margin-bottom:8px;">
-      <input type="number" placeholder="数量" required style="width:100%;margin-bottom:8px;">
-      <input type="text" placeholder="割引コード" style="width:100%;margin-bottom:8px;">
-      <input type="text" placeholder="設置・配送条件" style="width:100%;margin-bottom:8px;">
-      <div style="margin-bottom:8px;color:#1976d2;font-size:0.95rem;">仮販売番号: PROV-20251029-0001</div>
-      <button type="submit" style="width:100%;">仮販売送信</button>
-    </form>
-    <div style="margin-top:18px;">
-      <span style="color:#e53935;font-size:0.95rem;">在庫警告: 一部商品は在庫僅少です</span><br>
-      <span style="color:#ff9800;font-size:0.95rem;">期限切れ警告: 仮販売は24時間以内に確定してください</span>
+  <header>POSシステム</header>
+  <main>
+    <div class="order-container">
+      <div class="order-title">仮販売作成</div>
+      <form>
+        <input type="text" placeholder="商品バーコード/商品名" required>
+        <input type="number" placeholder="数量" min="1" required>
+        <input type="text" placeholder="顧客情報（任意）">
+        <textarea placeholder="備考・設置メモ"></textarea>
+        <div class="order-actions">
+          <button type="submit">登録</button>
+          <button type="button">クリア</button>
+          <button type="button">キャンセル</button>
+        </div>
+      </form>
     </div>
   </main>
-  <footer>© 2025 POS System</footer>
+  <footer>Copyright &copy; 2025 POS Demo</footer>
 </body>
 </html>

@@ -1,0 +1,24 @@
+# 画面イメージ作成・レビュー統合手順 (YAML形式)
+purpose: |
+  画面概要を分析し、最新UI/UX基準でMock HTML/CSSを作成・レビューする。
+role: |
+  日本のUX/UI設計専門家として、業務要件・UI/UX品質・統一性を厳密にチェック。
+input:
+  - docs/03_画面系/<画面論理名>/画面概要.md
+  - docs/03_画面系/画面一覧.md
+  - docs/01_templates/画面イメージ_Template.md
+  - docs/00_intructions/00_naming_and_structure_reference.md
+steps:
+  - 画面概要を分析し、画面イメージ資料（Markdown）を作成
+  - Mock HTML/CSSファイルを作成し、base.cssでUI統一
+  - index.htmlに全Mockへのリンクを追加
+  - UI/UX・業務要件・統一性をレビュー
+output:
+  - files:
+      - docs/03_画面系/00_画面イメージ/<画面論理名>.html
+      - docs/03_画面系/00_画面イメージ/<画面論理名>.css
+      - docs/03_画面系/00_画面イメージ/base.css
+      - docs/03_画面系/00_画面イメージ/index.html
+    language: 日本語
+    template: docs/01_templates/画面イメージ_Template.md
+    note: UI/UX統一・業務要件・検証レポートを必ず記載

@@ -2,32 +2,93 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>仮販売一覧画面</title>
+  <title>仮販売一覧画面 - POS</title>
   <link rel="stylesheet" href="base.css">
+  <style>
+    .list-container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+    }
+    .list-title {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #1976d2;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+    }
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+    th {
+      background: #f5f5f5;
+      color: #1976d2;
+    }
+    .list-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+  </style>
 </head>
 <body>
-  <header>仮販売一覧</header>
-  <main class="card">
-    <h2>仮販売一覧</h2>
-    <form style="margin-bottom:16px;">
-      <input type="text" placeholder="仮販売番号・商品名で検索" style="width:100%;margin-bottom:8px;">
-      <button type="button" style="width:100%;margin-bottom:12px;">検索</button>
-    </form>
-    <table class="table">
-      <thead>
-        <tr><th>番号</th><th>商品</th><th>数量</th><th>状態</th><th>期限</th><th>操作</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>PROV-20251029-0001</td><td>冷蔵庫</td><td>1</td><td>未確定</td><td>2025/10/30</td><td><button>確定</button><button>取消</button><button>履歴</button></td></tr>
-        <tr><td>PROV-20251029-0002</td><td>テレビ</td><td>2</td><td>期限切れ</td><td>2025/10/28</td><td><button>再作成</button><button>履歴</button></td></tr>
-        <tr><td>PROV-20251029-0003</td><td>電子レンジ</td><td>1</td><td>確定</td><td>2025/10/29</td><td><button>詳細</button><button>履歴</button></td></tr>
-      </tbody>
-    </table>
-    <div style="margin-top:18px;">
-      <span style="color:#e53935;font-size:0.95rem;">期限切れ警告: 一部仮販売は期限を過ぎています</span>
-      <span style="color:#1976d2;font-size:0.95rem;">履歴・操作ログは管理者画面で確認可能</span>
+  <header>POSシステム</header>
+  <main>
+    <div class="list-container">
+      <div class="list-title">仮販売一覧</div>
+      <table>
+        <thead>
+          <tr>
+            <th>仮販売ID</th>
+            <th>担当者</th>
+            <th>日時</th>
+            <th>状態</th>
+            <th>合計金額</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PROV-20251029-0001</td>
+            <td>山田</td>
+            <td>10:15</td>
+            <td>未確定</td>
+            <td>¥12,000</td>
+            <td class="list-actions">
+              <button>詳細</button>
+              <button>編集</button>
+              <button>削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>PROV-20251029-0002</td>
+            <td>佐藤</td>
+            <td>10:22</td>
+            <td>未確定</td>
+            <td>¥8,500</td>
+            <td class="list-actions">
+              <button>詳細</button>
+              <button>編集</button>
+              <button>削除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="list-actions">
+        <button>新規作成</button>
+        <button>検索</button>
+      </div>
     </div>
   </main>
-  <footer>© 2025 POS System</footer>
+  <footer>Copyright &copy; 2025 POS Demo</footer>
 </body>
 </html>

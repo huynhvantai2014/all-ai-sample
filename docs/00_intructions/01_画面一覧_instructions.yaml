@@ -1,0 +1,25 @@
+# 画面一覧作成・管理手順 (YAML形式)
+
+purpose: |
+  ユーザーストーリーから必要な画面を抽出し、テンプレートに従い画面一覧を作成する。
+
+role: |
+  設計観点での厳密さ、命名規則、一貫性、可追跡性を重視する。
+
+input:
+  - docs/user_story 配下の全ファイル
+  - docs/01_templates/画面一覧_Template.md
+  - docs/00_intructions/00_naming_and_structure_reference.md
+
+steps:
+  - docs/user_story/user-stories.md を読み、必要な画面をすべて抽出する
+  - 画面一覧（SRC0001, SRC0002, ...）を user story に基づきリスト化する（user story 更新時は必ず再確認）
+  - 各画面の情報を user story から抽出し、テンプレート docs/01_templates/画面一覧_Template.md の項目に合わせて記載する
+  - 関連する user story を各画面ごとにまとめる
+
+output:
+  - file: docs/03_画面系/画面一覧.md
+    language: 日本語
+    template: docs/01_templates/画面一覧_Template.md
+    naming_rule: docs/00_intructions/00_naming_and_structure_reference.md
+    note: 画面一覧に従い、画面フォルダを命名規則に従って作成する
