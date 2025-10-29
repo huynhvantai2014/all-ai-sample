@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>カート画面</title>
+  <link rel="stylesheet" href="base.css">
+</head>
+<body style="margin:0;padding:0;min-height:100vh;display:flex;flex-direction:column;">
+  <header style="width:100%;background:#1976d2;color:#fff;padding:16px 0;text-align:center;font-size:1.2rem;box-shadow:0 2px 8px rgba(33,150,243,0.10);font-weight:500;">カート</header>
+  <main class="card" style="flex:1 1 auto;display:flex;flex-direction:column;justify-content:flex-start;">
+    <h2 style="margin-bottom:16px;">カート</h2>
+    <div style="flex:1 1 auto;overflow:auto;">
+      <table class="table">
+        <thead>
+          <tr><th>画像</th><th>商品</th><th>数量</th><th>価格</th><th>操作</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><img src="https://cdn-icons-png.flaticon.com/128/1046/1046857.png" alt="冷蔵庫" style="width:48px;height:48px;"></td><td>冷蔵庫</td><td>1</td><td>¥50,000</td><td><button>削除</button></td></tr>
+          <tr><td><img src="https://cdn-icons-png.flaticon.com/128/1046/1046876.png" alt="テレビ" style="width:48px;height:48px;"></td><td>テレビ</td><td>2</td><td>¥80,000</td><td><button>削除</button></td></tr>
+          <tr><td><img src="https://cdn-icons-png.flaticon.com/128/1046/1046882.png" alt="電子レンジ" style="width:48px;height:48px;"></td><td>電子レンジ</td><td>1</td><td>¥15,000</td><td><button>削除</button></td></tr>
+          <tr><td><img src="https://cdn-icons-png.flaticon.com/128/1046/1046865.png" alt="炊飯器" style="width:48px;height:48px;"></td><td>炊飯器</td><td>1</td><td>¥12,000</td><td><button>削除</button></td></tr>
+          <tr><td><img src="https://cdn-icons-png.flaticon.com/128/1046/1046880.png" alt="掃除機" style="width:48px;height:48px;"></td><td>掃除機</td><td>1</td><td>¥18,000</td><td><button>削除</button></td></tr>
+          <tr><td><img src="https://cdn-icons-png.flaticon.com/128/1046/1046872.png" alt="エアコン" style="width:48px;height:48px;"></td><td>エアコン</td><td>1</td><td>¥60,000</td><td><button>削除</button></td></tr>
+          <tr><td><img src="https://cdn-icons-png.flaticon.com/128/1046/1046869.png" alt="扇風機" style="width:48px;height:48px;"></td><td>扇風機</td><td>2</td><td>¥6,000</td><td><button>削除</button></td></tr>
+          <tr><td><img src="https://cdn-icons-png.flaticon.com/128/1046/1046878.png" alt="加湿器" style="width:48px;height:48px;"></td><td>加湿器</td><td>1</td><td>¥8,000</td><td><button>削除</button></td></tr>
+          <tr><td><img src="https://cdn-icons-png.flaticon.com/128/1046/1046884.png" alt="照明" style="width:48px;height:48px;"></td><td>照明</td><td>3</td><td>¥9,000</td><td><button>削除</button></td></tr>
+          <tr><td><img src="https://cdn-icons-png.flaticon.com/128/1046/1046862.png" alt="アイロン" style="width:48px;height:48px;"></td><td>アイロン</td><td>1</td><td>¥5,000</td><td><button>削除</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin: 24px 0; text-align: center;">
+      <button style="width: 90%; max-width: 400px; font-size: 1.2rem;">会計へ</button>
+    </div>
+  </main>
+  <footer style="width:100%;background:#1976d2;color:#fff;padding:12px 0;text-align:center;">© 2025 POS System</footer>
+</body>
+</html>

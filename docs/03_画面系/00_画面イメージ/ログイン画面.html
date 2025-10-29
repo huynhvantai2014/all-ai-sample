@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ログイン画面</title>
+  <link rel="stylesheet" href="base.css">
+</head>
+<body style="margin:0;padding:0;width:100vw;height:100vh;min-height:100vh;background:linear-gradient(135deg,#e3f2fd 60%,#fff 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;">
+  <header style="width:100%;background:#1976d2;color:#fff;padding:18px 0;text-align:center;font-size:1.3rem;box-shadow:0 2px 8px rgba(33,150,243,0.10);font-weight:500;">POS ログイン</header>
+  <main class="card" style="width:100%;max-width:380px;margin:auto;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:340px;">
+    <h2 style="margin-bottom:18px;">ログイン</h2>
+    <form style="width:100%;display:flex;flex-direction:column;align-items:center;">
+      <input type="text" placeholder="ユーザー名" required style="width:100%;margin-bottom:12px;">
+      <input type="password" placeholder="パスワード" required style="width:100%;margin-bottom:12px;">
+      <button type="submit" style="width:100%;margin-bottom:10px;">ログイン</button>
+      <label style="width:100%;display:flex;align-items:center;justify-content:flex-start;margin-bottom:10px;">
+        <input type="checkbox" style="margin-right:8px;">この端末を記憶する（Remember Device）
+      </label>
+    </form>
+    <div style="margin-top:18px;color:#e53935;font-size:0.95rem;">※ ユーザー名・パスワードを正しく入力してください</div>
+  </main>
+  <footer style="width:100%;background:#1976d2;color:#fff;padding:12px 0;text-align:center;position:absolute;bottom:0;left:0;">© 2025 POS System</footer>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>仮販売一覧画面</title>
+  <link rel="stylesheet" href="base.css">
+</head>
+<body>
+  <header>仮販売一覧</header>
+  <main class="card">
+    <h2>仮販売一覧</h2>
+    <form style="margin-bottom:16px;">
+      <input type="text" placeholder="仮販売番号・商品名で検索" style="width:100%;margin-bottom:8px;">
+      <button type="button" style="width:100%;margin-bottom:12px;">検索</button>
+    </form>
+    <table class="table">
+      <thead>
+        <tr><th>番号</th><th>商品</th><th>数量</th><th>状態</th><th>期限</th><th>操作</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>PROV-20251029-0001</td><td>冷蔵庫</td><td>1</td><td>未確定</td><td>2025/10/30</td><td><button>確定</button><button>取消</button><button>履歴</button></td></tr>
+        <tr><td>PROV-20251029-0002</td><td>テレビ</td><td>2</td><td>期限切れ</td><td>2025/10/28</td><td><button>再作成</button><button>履歴</button></td></tr>
+        <tr><td>PROV-20251029-0003</td><td>電子レンジ</td><td>1</td><td>確定</td><td>2025/10/29</td><td><button>詳細</button><button>履歴</button></td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:18px;">
+      <span style="color:#e53935;font-size:0.95rem;">期限切れ警告: 一部仮販売は期限を過ぎています</span>
+      <span style="color:#1976d2;font-size:0.95rem;">履歴・操作ログは管理者画面で確認可能</span>
+    </div>
+  </main>
+  <footer>© 2025 POS System</footer>
+</body>
+</html>

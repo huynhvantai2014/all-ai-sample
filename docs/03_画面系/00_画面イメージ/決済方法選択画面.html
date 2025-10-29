@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>決済方法選択画面</title>
+  <link rel="stylesheet" href="base.css">
+</head>
+<body>
+  <header>決済方法選択</header>
+  <main class="card">
+    <h2>決済方法選択</h2>
+    <form style="margin-bottom:16px;">
+      <select style="width:100%;margin-bottom:8px;">
+        <option>現金</option>
+        <option>クレジット</option>
+        <option>ICカード</option>
+        <option>QR</option>
+        <option>分割</option>
+      </select>
+      <input type="text" placeholder="決済情報入力（カード番号・QR等）" style="width:100%;margin-bottom:8px;">
+      <button type="submit" style="width:100%;">決済</button>
+    </form>
+    <div style="margin-top:18px;">
+      <span style="color:#1976d2;font-size:0.95rem;">決済結果はレシート・電子通知で確認可能</span><br>
+      <span style="color:#e53935;font-size:0.95rem;">エラー時は管理者に通知</span>
+    </div>
+  </main>
+  <footer>© 2025 POS System</footer>
+</body>
+</html>
