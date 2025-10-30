@@ -47,12 +47,40 @@ export function errorResponse(error: string, data?: any): ApiResponse {
 }
 
 // Date utilities
-export function formatDate(date: Date): string {
-  return date.toLocaleDateString('ja-JP');
+export function formatDate(date: Date | string | null | undefined, locale: string = 'ja-JP'): string {
+  if (!date) return '未設定';
+  
+  try {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    
+    // Check if date is valid
+    if (isNaN(dateObj.getTime())) {
+      return '無効な日付';
+    }
+    
+    return dateObj.toLocaleDateString(locale);
+  } catch (error) {
+    console.error('Date formatting error:', error);
+    return '無効な日付';
+  }
 }
 
-export function formatDateTime(date: Date): string {
-  return date.toLocaleString('ja-JP');
+export function formatDateTime(date: Date | string | null | undefined, locale: string = 'ja-JP'): string {
+  if (!date) return '未設定';
+  
+  try {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    
+    // Check if date is valid
+    if (isNaN(dateObj.getTime())) {
+      return '無効な日付';
+    }
+    
+    return dateObj.toLocaleString(locale);
+  } catch (error) {
+    console.error('DateTime formatting error:', error);
+    return '無効な日付';
+  }
 }
 
 export function formatCurrency(amount: number): string {

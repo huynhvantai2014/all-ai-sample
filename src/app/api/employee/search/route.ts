@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
       .sort(sortOptions)
       .skip((page - 1) * limit)
       .limit(limit)
-      .select('employee_id full_name email department status created_at');
+      .select('employee_id full_name email department position status join_date created_at');
 
     return NextResponse.json({
       success: true,

@@ -33,6 +33,7 @@ import {
 } from '@mui/icons-material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { formatDate } from '@/lib/utils';
 
 interface Employee {
   employee_id: string;
@@ -268,7 +269,7 @@ export default function EmployeePage() {
                       />
                     </TableCell>
                     <TableCell>
-                      {new Date(employee.join_date).toLocaleDateString('ja-JP')}
+                      {formatDate(employee.join_date)}
                     </TableCell>
                     <TableCell align="center">
                       <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center' }}>

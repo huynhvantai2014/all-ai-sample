@@ -28,6 +28,7 @@ import {
   Logout as LogoutIcon
 } from '@mui/icons-material';
 import { useRouter, useParams } from 'next/navigation';
+import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 
 interface Employee {
@@ -303,7 +304,7 @@ export default function EmployeeDetailPage() {
                       入社日
                     </Typography>
                     <Typography variant="body1">
-                      {new Date(employee.join_date).toLocaleDateString('ja-JP')}
+                      {formatDate(employee.join_date)}
                     </Typography>
                   </Box>
                 </Box>
