@@ -1,43 +1,52 @@
-# Copilot Instructions for all-ai POS Demo Codebase
+# Copilot Instructions for all-ai HR Management System
 
 ## Big Picture Architecture
-- This is a Next.js 16 (App Router) fullstack POS demo using Material UI and MongoDB (via mongoose).
-- Source code is organized by physical screen names (not screen IDs) under `src/app/` (e.g. `login`, `provisional_order`, `checkout`, etc.).
-- API routes are in `src/app/api/` and use mock data for demo purposes.
-- Each screen is a standalone React component, often using Material UI for layout and controls.
-- Authentication is mocked via localStorage (`pos_logged_in`).
+- This is a Next.js 16 (App Router) fullstack HR management system using Material UI, MongoDB (via Mongoose), and JWT authentication.
+- Source code follows Japanese SI documentation patterns with comprehensive design documents in `docs/` directory.
+- Frontend screens are in `src/app/` (e.g., `employees`, `login`, `dashboard`) as standalone React components.
+- Backend APIs in `src/app/api/` provide real MongoDB integration with proper authentication and authorization.
+- Authentication uses JWT tokens stored in localStorage with role-based access control.
 
 ## Developer Workflows
-- **Development:** Use `npm run dev` to start the local server (Turbopack).
-- **Build:** Use `npm run build` for production builds.
-- **API Mocking:** Most API endpoints (e.g. `/api/items`, `/api/provisional-orders`) return hardcoded mock data for demo/testing.
-- **Login:** Use userId=`admin`, password=`123456` for mock login.
-- **Screen Navigation:** Use Next.js `<Link>` (no legacyBehavior) for navigation between screens.
+- **Development:** Use `npm run dev` to start local server with Turbopack
+- **Database:** Use `npm run seed` to populate MongoDB with test data
+- **Login:** Test with `admin/123456` for full access
+- **Documentation:** All specs follow IPA (Information-technology Promotion Agency) Japanese standards in `docs/`
+- **Code Generation:** Use design documents in `docs/03_画面系/` to generate screens and APIs
 
 ## Project-Specific Patterns
-- **Screen Naming:** All screens and mock files use physical names (e.g. `login.html`, `provisional_order.html`) for clarity and demo alignment.
-- **UI Consistency:** Main color is standardized (`#1976d2`). Layout and spacing follow Material UI defaults, but can be adjusted to match mock HTML/CSS.
-- **Client Components:** All screens using React hooks (`useEffect`, etc.) must have `'use client'` at the top.
-- **Authentication Guard:** Home screen and protected screens auto-redirect to `/login` if not authenticated.
-- **Mock Data:** API routes in `src/app/api/` are designed for easy extension; update mock arrays to change demo data.
+- **Documentation-Driven:** Every screen has detailed specs in `docs/03_画面系/<画面論理名>/画面定義書.md`
+- **Japanese Naming:** Use Japanese logical names for folders (e.g., `社員一覧・検索画面`) following `docs/00_intructions/00_naming_and_structure_reference.md`
+- **Client Components:** All interactive React components must start with `'use client'`
+- **Authentication Flow:** Check `localStorage.getItem('token')` and redirect to `/login` if missing
+- **API Standards:** All APIs follow consistent error codes (E001-E999) and response format patterns
+- **Emotion SSR:** Handle hydration mismatches with `ClientOnly` wrapper and emotion cache
 
 ## Integration Points
-- **Material UI:** Used for all UI components; theme is set in a client-only provider (`MuiRootProvider`).
-- **Emotion:** SSR is partially supported; style FART may occur due to Next.js 16 limitations.
-- **MongoDB:** Mongoose is installed but not used in mock APIs; real DB integration can be added in `src/app/api/`.
+- **Authentication:** JWT tokens with Bearer authentication in API headers
+- **Database:** MongoDB with Mongoose ODM, models in `src/models/`
+- **UI Framework:** Material UI v5 with blue primary theme
+- **Form Handling:** React Hook Form with Yup validation
+- **Data Fetching:** Native fetch API with consistent error handling
 
-## Examples
-- To add a new screen, create a folder under `src/app/` (e.g. `sales_report`) and add a `page.tsx` with `'use client'` and Material UI components.
-- To update mock data, edit the relevant API route file (e.g. `src/app/api/items/route.ts`).
-- To match UI with mock HTML, refer to `docs/mock/*.html` and adjust Material UI props/styles accordingly.
+## Documentation Templates
+- **Screen Specs:** Use `docs/01_templates/画面定義書_Template.md` for new screens
+- **API Specs:** Use `docs/01_templates/API定義書_Template.md` for new endpoints
+- **Naming Rules:** Follow `docs/00_intructions/00_naming_and_structure_reference.md` strictly
 
 ## Key Files & Directories
-- `src/app/` — Main screens and pages
-- `src/app/api/` — API routes (mocked)
-- `src/components/` — Shared React components (e.g. `MuiRootProvider`, `AuthGuard`)
-- `docs/mock/` — HTML/CSS mockups for demo reference
-- `docs/gen_process_jp.md` — Japanese SI process and AI usage documentation
+- `src/app/` — Screen components and API routes
+- `src/models/` — Mongoose schemas (Employee, User, Resource)
+- `src/components/` — Shared components (MuiRootProvider, AuthGuard, ClientOnly)
+- `docs/03_画面系/` — Complete screen specifications with API definitions
+- `docs/00_intructions/` — Development process and naming conventions
+- `lib/mongodb.ts` — Database connection singleton
+
+## Examples
+- **New Screen:** Create `docs/03_画面系/<画面名>/画面定義書.md` first, then implement `src/app/<screen>/page.tsx`
+- **New API:** Follow pattern in `src/app/api/employee/search/route.ts` with proper error handling
+- **Authentication:** Copy auth check pattern from existing screens: `const token = localStorage.getItem('token'); if (!token) router.push('/login');`
 
 ---
 
-For any unclear conventions or missing patterns, please ask for clarification or provide feedback to improve these instructions.
+For domain-specific patterns or Japanese documentation standards, refer to the comprehensive specs in `docs/` directory.
