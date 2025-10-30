@@ -1,26 +1,35 @@
-# ドキュメント命名規則・フォルダ構成（参照用）
 
-- すべてのドキュメント作成手順書は本ファイルを参照すること。
+# ドキュメント命名規則・保存場所（簡易版）
 
-## フォルダ構成
+## 画面概要
+Mô tả: Tổng quan nghiệp vụ, chức năng, vai trò của từng màn hình UI.
+Lưu tại: `docs/03_画面系/<画面論理名>/`
+Ví dụ: `<画面論理名>_画面概要.md`
 
-- `docs/00_intructions/` ：手順書・命名規則・テンプレート・概要・プロジェクト標準関連ファイル
-- `docs/01_templates/` ：各種ドキュメントテンプレート
-- `docs/02_user_story/` ：ユーザーストーリー・要件定義
-- `docs/03_画面系/` ：画面関連ドキュメント（各画面は日本語名＋画面フォルダ）
-    - `docs/03_画面系/00_画面イメージ/` ：各画面のMock HTML/CSS・イメージファイル
-- `docs/04_機能系/` ：機能（API、プロセス、ロジック等）関連ドキュメント
-- `docs/05_DM系/` ：データモデル関連（テーブル定義、ERD等）
+## 画面定義書
+Mô tả: Định nghĩa chi tiết layout, logic, luồng nghiệp vụ, input/output của màn hình.
+Lưu tại: `docs/03_画面系/<画面論理名>/`
+Ví dụ: `ログイン画面_画面定義書.md`
 
-## 命名規則
+## API定義書
+Mô tả: Định nghĩa chi tiết endpoint, nghiệp vụ backend, request/response, mã lỗi.
+Lưu tại: `docs/04_機能系/` hoặc trong thư mục màn hình liên quan
+Ví dụ: `employeeSearch_API定義書.md`
 
-- ドキュメント保存場所：画面関連は `docs/03_画面系/<画面名>` 配下
-- 画面概要ファイルの保存場所：`docs/03_画面系/<画面名>/<画面名>_画面概要.md`（最重要）
-- Mock HTML/CSSは `docs/03_画面系/00_画面イメージ/<画面名>.html/.css` に保存
-- 画面フォルダ：日本語名＋「画面」（例：ログイン画面）
-- 画面論理名：必ず「画面」で終わること（例：ログイン画面、仮販売作成画面）
-- 画面概要ファイル：<画面論理名>_画面概要.md（例：ログイン画面_画面概要.md）
-- 画面定義書ファイル：<画面論理名>_画面定義書.md（例：ログイン画面_画面定義書.md）
-- 画面イメージファイル：<画面論理名>_画面イメージ.md（Mockの場合は.html/.cssも可）
-- 画面コード（SRC0001等）はフォルダ・ファイル名に使用しない
-- 規則変更時は必ず本ファイルを先に更新すること
+## テーブル定義書
+Mô tả: Định nghĩa chi tiết cấu trúc bảng, các trường, kiểu dữ liệu, ràng buộc.
+Lưu tại: `docs/05_DM系/`
+Ví dụ: `Employee_テーブル定義書.md`
+
+## テーブル一覧.md
+Mô tả: Danh sách tổng hợp tất cả các bảng dữ liệu trong hệ thống.
+Lưu tại: `docs/05_DM系/`
+Ví dụ: `テーブル一覧.md`
+
+## Quy tắc chung
+Đảm bảo nhất quán tên gọi, vị trí lưu, format tài liệu cho toàn bộ hệ thống.
+Tên màn hình: luôn kết thúc bằng "画面" (Nhật)
+Tên API: dùng tên vật lý tiếng Anh, không dùng tiếng Nhật
+Thư mục màn hình: dùng tiếng Nhật, không dùng tiếng Anh
+Không dùng mã màn hình (SRC0001...) cho tên file/thư mục
+Luôn tuân thủ template ở `docs/01_templates/`

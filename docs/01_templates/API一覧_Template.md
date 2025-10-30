@@ -7,9 +7,3 @@
 | API003 | ユーザー更新     | /api/users/{id} | PUT | ユーザー情報の更新 | idは必須 |
 | API004 | ユーザー削除     | /api/users/{id} | DELETE | ユーザー情報の削除 | 論理削除 |
 | API005 | ログイン         | /api/login | POST | ユーザーログイン認証 | JWT発行 |
-
-> ※ API ID: duy nhất, viết hoa, số thứ tự
-> ※ エンドポイント: endpoint RESTful
-> ※ メソッド: GET, POST, PUT, DELETE, ...
-> ※ 機能概要: mô tả ngắn chức năng API
-> ※ 備考: ghi chú đặc biệt nếu có
