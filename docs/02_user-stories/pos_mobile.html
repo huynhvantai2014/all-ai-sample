@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POS画面</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      body {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex flex-col">
+    <header class="bg-blue-600 text-white py-4 px-6 text-center text-xl font-bold">POSレジ</header>
+    <main class="flex-1 px-4 py-6 flex flex-col gap-4">
+      <section class="bg-white rounded-lg shadow p-4">
+        <div class="flex justify-between items-center mb-2">
+          <span class="font-semibold">商品名</span>
+          <span class="font-semibold">金額</span>
+        </div>
+        <ul id="cart-list" class="divide-y">
+          <li class="flex justify-between py-2">
+            <span>りんご</span>
+            <span>¥120</span>
+          </li>
+          <li class="flex justify-between py-2">
+            <span>バナナ</span>
+            <span>¥80</span>
+          </li>
+        </ul>
+      </section>
+      <section class="bg-white rounded-lg shadow p-4 flex flex-col gap-2">
+        <label class="font-semibold" for="item">商品追加</label>
+        <input id="item" type="text" placeholder="商品名" class="border rounded px-2 py-1" />
+        <input id="price" type="number" placeholder="金額" class="border rounded px-2 py-1" />
+        <button id="add-btn" class="bg-blue-600 text-white rounded py-2 mt-2">追加</button>
+      </section>
+      <div class="flex justify-between items-center bg-white rounded-lg shadow p-4 mb-2 text-lg font-bold">
+        <span>合計</span>
+        <span id="total">¥200</span>
+      </div>
+      <section class="bg-white rounded-lg shadow p-4 flex flex-col gap-2">
+        <button class="bg-green-500 text-white rounded py-2 font-bold">会計</button>
+        <button class="bg-red-500 text-white rounded py-2 font-bold">キャンセル</button>
+      </section>
+    </main>
+    <footer class="bg-gray-200 text-center py-2 text-xs">© 2025 POSシステム</footer>
+    <script>
+      const cartList = document.getElementById('cart-list');
+      const totalEl = document.getElementById('total');
+      const addBtn = document.getElementById('add-btn');
+      let total = 200;
+      addBtn.onclick = function() {
+        const item = document.getElementById('item').value;
+        const price = Number(document.getElementById('price').value);
+        if (item && price) {
+          const li = document.createElement('li');
+          li.className = 'flex justify-between py-2';
+          li.innerHTML = `<span>${item}</span><span>¥${price}</span>`;
+          cartList.appendChild(li);
+          total += price;
+          totalEl.textContent = `¥${total}`;
+        }
+      };
+    </script>
+  </body>
+</html>

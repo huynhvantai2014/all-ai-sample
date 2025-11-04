@@ -1,6 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Employee from '@/models/Employee';
+import * as yup from 'yup';
+
+// メッセージ定義
+const messages = {
+  E201: '必須項目が入力されていません',
+  E202: 'このメールアドレスは既に使用されています',
+  E203: '社員情報が存在しません',
+  E204: 'データの形式が正しくありません',
+  E299: 'システムエラー',
+  SUCCESS: '社員情報を更新しました'
+};
+
+// DTOバリデーションスキーマ
+const employeeUpdateSchema = yup.object({
+  full_name: yup.string().required(messages.E201),
+  email: yup.string().email(messages.E204).required(messages.E201),
+  phone: yup.string().nullable(),
+  department: yup.string().required(messages.E201),
+  position: yup.string().required(messages.E201),
+  status: yup.string().required(messages.E201),
+  skill: yup.array().of(yup.string()).nullable(),
+  join_date: yup.date().required(messages.E201)
+});
 
 export async function PUT(
   request: NextRequest,
@@ -8,9 +31,20 @@ export async function PUT(
 ) {
   try {
     await dbConnect();
-    
     const { employee_id } = await params;
     const body = await request.json();
+
+    // DTOバリデーション
+    try {
+      await employeeUpdateSchema.validate(body, { abortEarly: false });
+    } catch (validationError: any) {
+      const result = {
+        success: false,
+        error: 'E201',
+        message: validationError.errors?.[0] || messages.E201
+      };
+      return NextResponse.json(result, { status: 400 });
+    }
 
     const {
       full_name,
@@ -22,16 +56,6 @@ export async function PUT(
       skill,
       join_date
     } = body;
-
-    // 入力検証
-    if (!full_name || !email || !department || !position || !status || !join_date) {
-      return NextResponse.json({
-        success: false,
-        error: 'E201',
-        message: '必須項目が入力されていません'
-      }, { status: 400 });
-    }
-
     // メールアドレスの重複チェック（自分以外）
     const existingEmployee = await Employee.findOne({ 
       email,
@@ -39,11 +63,12 @@ export async function PUT(
     });
     
     if (existingEmployee) {
-      return NextResponse.json({
+      const result = {
         success: false,
         error: 'E202',
-        message: 'このメールアドレスは既に使用されています'
-      }, { status: 400 });
+        message: messages.E202
+      };
+      return NextResponse.json(result, { status: 400 });
     }
 
     // 社員情報更新
@@ -66,42 +91,47 @@ export async function PUT(
     );
 
     if (!updatedEmployee) {
-      return NextResponse.json({
+      const result = {
         success: false,
         error: 'E203',
-        message: '社員情報が存在しません'
-      }, { status: 404 });
+        message: messages.E203
+      };
+      return NextResponse.json(result, { status: 404 });
     }
 
-    return NextResponse.json({
+    const result = {
       success: true,
-      employee_id: updatedEmployee.employee_id,
-      full_name: updatedEmployee.full_name,
-      email: updatedEmployee.email,
-      phone: updatedEmployee.phone,
-      department: updatedEmployee.department,
-      position: updatedEmployee.position,
-      status: updatedEmployee.status,
-      skill: updatedEmployee.skill,
-      join_date: updatedEmployee.join_date,
-      updated_at: updatedEmployee.updated_at
-    });
+      message: messages.SUCCESS,
+      employee: {
+        employee_id: updatedEmployee.employee_id,
+        full_name: updatedEmployee.full_name,
+        email: updatedEmployee.email,
+        phone: updatedEmployee.phone,
+        department: updatedEmployee.department,
+        position: updatedEmployee.position,
+        status: updatedEmployee.status,
+        skill: updatedEmployee.skill,
+        join_date: updatedEmployee.join_date,
+        updated_at: updatedEmployee.updated_at
+      }
+    };
+    return NextResponse.json(result);
 
   } catch (error) {
     console.error('Employee update error:', error);
-    
     if (error instanceof Error && error.name === 'ValidationError') {
-      return NextResponse.json({
+      const result = {
         success: false,
         error: 'E204',
-        message: 'データの形式が正しくありません'
-      }, { status: 400 });
+        message: messages.E204
+      };
+      return NextResponse.json(result, { status: 400 });
     }
-
-    return NextResponse.json({
+    const result = {
       success: false,
       error: 'E299',
-      message: 'システムエラー'
-    }, { status: 500 });
+      message: messages.E299
+    };
+    return NextResponse.json(result, { status: 500 });
   }
 }
