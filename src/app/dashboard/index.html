@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ダッシュボード - POSシステム</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .touch-btn {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        .dashboard-card {
+            transition: transform 0.2s ease-in-out;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .period-btn.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- ダッシュボード画面メインコンテナ -->
+    <div class="max-w-6xl mx-auto bg-white shadow-lg min-h-screen">
+        <!-- ヘッダー -->
+        <header class="bg-blue-600 text-white p-4">
+            <div class="flex items-center justify-between">
+                <button id="back-btn" class="text-white hover:bg-blue-700 p-2 rounded touch-btn">
+                    ← 戻る
+                </button>
+                <h1 class="text-xl font-bold">ダッシュボード</h1>
+                <div class="w-12"></div> <!-- スペーサー -->
+            </div>
+        </header>
+
+        <!-- フィルタ・期間選択 -->
+        <div class="p-4 border-b bg-white">
+            <div class="flex flex-wrap gap-2 items-center justify-center">
+                <button class="period-btn bg-gray-200 px-4 py-2 rounded-lg touch-btn hover:bg-gray-300 font-semibold active" data-period="daily">
+                    日次
+                </button>
+                <button class="period-btn bg-gray-200 px-4 py-2 rounded-lg touch-btn hover:bg-gray-300 font-semibold" data-period="weekly">
+                    週次
+                </button>
+                <button class="period-btn bg-gray-200 px-4 py-2 rounded-lg touch-btn hover:bg-gray-300 font-semibold" data-period="monthly">
+                    月次
+                </button>
+            </div>
+        </div>
+
+        <!-- メインコンテンツ -->
+        <div class="p-4">
+            <!-- サマリーカード -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <!-- 売上カード -->
+                <div class="dashboard-card bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-green-800">売上</h3>
+                            <p class="text-2xl font-bold text-green-600" id="sales-amount">¥0</p>
+                            <p class="text-sm text-green-600" id="sales-change">前日比: 0%</p>
+                        </div>
+                        <div class="text-green-500 text-3xl">
+                            💰
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 在庫カード -->
+                <div class="dashboard-card bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-800">在庫</h3>
+                            <p class="text-2xl font-bold text-blue-600" id="stock-count">0</p>
+                            <p class="text-sm text-blue-600" id="stock-status">品目</p>
+                        </div>
+                        <div class="text-blue-500 text-3xl">
+                            📦
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 顧客数カード -->
+                <div class="dashboard-card bg-purple-50 border border-purple-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-purple-800">顧客数</h3>
+                            <p class="text-2xl font-bold text-purple-600" id="customer-count">0</p>
+                            <p class="text-sm text-purple-600" id="customer-change">新規: 0人</p>
+                        </div>
+                        <div class="text-purple-500 text-3xl">
+                            👥
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- グラフエリア -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <!-- 売上グラフ -->
+                <div class="dashboard-card bg-white border rounded-lg p-4">
+                    <h3 class="text-lg font-semibold mb-4">売上推移</h3>
+                    <div class="relative h-64">
+                        <canvas id="sales-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 商品別売上グラフ -->
+                <div class="dashboard-card bg-white border rounded-lg p-4">
+                    <h3 class="text-lg font-semibold mb-4">商品別売上</h3>
+                    <div class="relative h-64">
+                        <canvas id="product-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPIエリア -->
+            <div class="dashboard-card bg-white border rounded-lg p-4">
+                <h3 class="text-lg font-semibold mb-4">主要KPI</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center p-3 bg-gray-50 rounded">
+                        <div class="text-2xl font-bold text-gray-700" id="kpi-sales-per-day">¥0</div>
+                        <div class="text-sm text-gray-500">1日平均売上</div>
+                    </div>
+                    <div class="text-center p-3 bg-gray-50 rounded">
+                        <div class="text-2xl font-bold text-gray-700" id="kpi-items-per-transaction">0</div>
+                        <div class="text-sm text-gray-500">取引当たり商品数</div>
+                    </div>
+                    <div class="text-center p-3 bg-gray-50 rounded">
+                        <div class="text-2xl font-bold text-gray-700" id="kpi-stock-turnover">0</div>
+                        <div class="text-sm text-gray-500">在庫回転率</div>
+                    </div>
+                    <div class="text-center p-3 bg-gray-50 rounded">
+                        <div class="text-2xl font-bold text-gray-700" id="kpi-new-customers">0</div>
+                        <div class="text-sm text-gray-500">新規顧客数</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <footer class="text-center text-xs text-gray-500 p-2 border-t">
+            © 2025 POSシステム
+        </footer>
+    </div>
+
+    <!-- ローディング表示 -->
+    <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 text-center">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
+            <p class="text-gray-700">データを読み込み中...</p>
+        </div>
+    </div>
+
+    <!-- エラーメッセージ -->
+    <div id="message" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg hidden z-50">
+        メッセージ
+    </div>
+
+    <!-- JavaScript モジュール読み込み -->
+    <script type="module" src="../../scripts/dashboard.js"></script>
+</body>
+</html>

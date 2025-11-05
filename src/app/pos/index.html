@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSレジ画面 - POSシステム</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    maxWidth: {
+                        'pos': '400px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .touch-btn {
+            min-height: 44px;
+            min-width: 44px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- POSレジ画面メインコンテナ -->
+    <div class="max-w-pos mx-auto bg-white shadow-lg min-h-screen">
+        <!-- ヘッダー -->
+        <header class="bg-blue-600 text-white p-4">
+            <h1 class="text-xl font-bold text-center">POSレジ</h1>
+        </header>
+
+        <!-- 商品検索セクション -->
+        <div class="p-4 border-b">
+            <div class="flex gap-2">
+                <input 
+                    type="text" 
+                    id="search" 
+                    placeholder="商品検索" 
+                    class="flex-1 p-3 border rounded-lg text-lg touch-btn"
+                    autocomplete="off"
+                >
+                <button 
+                    id="barcode_btn" 
+                    class="bg-gray-200 px-4 py-3 rounded-lg touch-btn hover:bg-gray-300"
+                >
+                    📷
+                </button>
+            </div>
+            
+            <!-- サジェストリスト -->
+            <div id="suggest" class="mt-2 bg-white border rounded-lg shadow-lg hidden max-h-40 overflow-y-auto">
+                <!-- サジェスト項目がここに動的に追加される -->
+            </div>
+        </div>
+
+        <!-- 商品リスト・カート表示エリア -->
+        <div class="flex-1">
+            <!-- 商品リスト -->
+            <div id="product-list" class="p-4 border-b">
+                <h2 class="text-lg font-semibold mb-3">商品</h2>
+                <div id="product-items" class="space-y-2 max-h-48 overflow-y-auto">
+                    <!-- 商品項目がここに動的に追加される -->
+                </div>
+            </div>
+
+            <!-- カート -->
+            <div id="cart-section" class="p-4">
+                <h2 class="text-lg font-semibold mb-3">カート</h2>
+                <div id="cart_list" class="space-y-2 max-h-32 overflow-y-auto min-h-[80px] bg-gray-50 p-2 rounded">
+                    <p class="text-gray-500 text-center">商品を追加してください</p>
+                </div>
+
+                <!-- 合計・ポイント表示 -->
+                <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                    <div class="flex justify-between text-lg">
+                        <span>合計:</span>
+                        <span id="total" class="font-bold">¥0</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-blue-600">
+                        <span>ポイント:</span>
+                        <span id="points">0pt</span>
+                    </div>
+                </div>
+
+                <!-- 操作ボタン -->
+                <div class="grid grid-cols-3 gap-2 mt-4">
+                    <button 
+                        id="open_payment" 
+                        class="bg-green-500 text-white p-3 rounded-lg touch-btn hover:bg-green-600 font-semibold"
+                    >
+                        支払い
+                    </button>
+                    <button 
+                        id="checkout" 
+                        class="bg-blue-500 text-white p-3 rounded-lg touch-btn hover:bg-blue-600 font-semibold"
+                    >
+                        会計
+                    </button>
+                    <button 
+                        id="cancel" 
+                        class="bg-red-500 text-white p-3 rounded-lg touch-btn hover:bg-red-600 font-semibold"
+                    >
+                        キャンセル
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <footer id="footer" class="text-center text-xs text-gray-500 p-2 border-t">
+            © 2025 POSシステム
+        </footer>
+    </div>
+
+    <!-- 支払い方法選択モーダル -->
+    <div id="payment_modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-sm mx-4 w-full">
+            <h3 class="text-xl font-bold mb-4 text-center">支払い方法選択</h3>
+            <div class="space-y-3">
+                <button class="payment-option w-full p-3 bg-gray-100 rounded-lg touch-btn hover:bg-gray-200" data-method="cash">
+                    💰 現金
+                </button>
+                <button class="payment-option w-full p-3 bg-gray-100 rounded-lg touch-btn hover:bg-gray-200" data-method="card">
+                    💳 カード
+                </button>
+                <button class="payment-option w-full p-3 bg-gray-100 rounded-lg touch-btn hover:bg-gray-200" data-method="points">
+                    ⭐ ポイント
+                </button>
+            </div>
+            <div class="mt-4 flex gap-2">
+                <button id="payment-close" class="flex-1 p-2 bg-gray-300 rounded-lg touch-btn hover:bg-gray-400">
+                    キャンセル
+                </button>
+                <button id="payment-confirm" class="flex-1 p-2 bg-blue-500 text-white rounded-lg touch-btn hover:bg-blue-600">
+                    決定
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- エラー・メッセージ表示 -->
+    <div id="message" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg hidden z-50">
+        エラーメッセージ
+    </div>
+
+    <!-- JavaScript モジュール読み込み -->
+    <script type="module" src="../../scripts/main.js"></script>
+</body>
+</html>

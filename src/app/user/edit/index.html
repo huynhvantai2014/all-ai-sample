@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ユーザー編集 - POSシステム</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .touch-btn {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        .form-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .role-card {
+            transition: all 0.3s ease;
+        }
+        
+        .role-card.selected {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        
+        .permission-item {
+            transition: all 0.2s ease;
+        }
+        
+        .permission-item:hover {
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- ヘッダー -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <button id="back-btn" class="p-2 text-gray-600 hover:text-gray-800 touch-btn">
+                        ← 戻る
+                    </button>
+                    <h1 class="text-xl font-bold text-gray-800">ユーザー編集</h1>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span id="user-role" class="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">管理者</span>
+                    <span id="current-user" class="text-sm text-gray-600">admin</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="max-w-4xl mx-auto p-4">
+        <!-- ユーザー編集フォーム -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <!-- アバター・基本情報セクション -->
+            <div class="flex flex-col md:flex-row gap-6 mb-8">
+                <!-- アバター -->
+                <div class="flex flex-col items-center">
+                    <div class="avatar-preview rounded-full flex items-center justify-center text-white text-4xl font-bold mb-4">
+                        <span id="avatar-text">👤</span>
+                    </div>
+                    <input type="file" id="avatar-upload" accept="image/*" class="hidden">
+                    <button id="avatar-btn" class="text-sm bg-gray-100 text-gray-700 px-4 py-2 rounded hover:bg-gray-200 touch-btn">
+                        画像変更
+                    </button>
+                </div>
+
+                <!-- 基本情報 -->
+                <div class="flex-1 space-y-4">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">基本情報</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <!-- ユーザーID -->
+                        <div>
+                            <label for="user-id" class="block text-sm font-medium text-gray-700 mb-2">
+                                ユーザーID <span class="text-red-500">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="user-id" 
+                                name="userId"
+                                class="form-input w-full p-3 border border-gray-300 rounded-lg touch-btn"
+                                placeholder="ユーザーIDを入力"
+                                required
+                            >
+                        </div>
+
+                        <!-- ユーザー名 -->
+                        <div>
+                            <label for="user-name" class="block text-sm font-medium text-gray-700 mb-2">
+                                ユーザー名 <span class="text-red-500">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="user-name" 
+                                name="userName"
+                                class="form-input w-full p-3 border border-gray-300 rounded-lg touch-btn"
+                                placeholder="ユーザー名を入力"
+                                required
+                            >
+                        </div>
+
+                        <!-- メールアドレス -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                                メールアドレス
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email"
+                                class="form-input w-full p-3 border border-gray-300 rounded-lg touch-btn"
+                                placeholder="email@example.com"
+                            >
+                        </div>
+
+                        <!-- 電話番号 -->
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                                電話番号
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone"
+                                class="form-input w-full p-3 border border-gray-300 rounded-lg touch-btn"
+                                placeholder="090-1234-5678"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- パスワード設定 -->
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">パスワード設定</h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                            新しいパスワード
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password"
+                                class="form-input w-full p-3 border border-gray-300 rounded-lg touch-btn pr-12"
+                                placeholder="パスワードを入力（空の場合は変更なし）"
+                            >
+                            <button 
+                                type="button" 
+                                id="toggle-password"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 touch-btn"
+                            >
+                                👁️
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password-confirm" class="block text-sm font-medium text-gray-700 mb-2">
+                            パスワード確認
+                        </label>
+                        <input 
+                            type="password" 
+                            id="password-confirm" 
+                            name="passwordConfirm"
+                            class="form-input w-full p-3 border border-gray-300 rounded-lg touch-btn"
+                            placeholder="パスワードを再入力"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- 権限・ロール設定 -->
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">権限・ロール設定</h2>
+                
+                <!-- ロール選択 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-3">
+                        ロール <span class="text-red-500">*</span>
+                    </label>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="role-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer" data-role="admin">
+                            <div class="text-center">
+                                <div class="text-2xl mb-2">👑</div>
+                                <h3 class="font-semibold text-gray-800">管理者</h3>
+                                <p class="text-sm text-gray-600 mt-1">全機能にアクセス可能</p>
+                            </div>
+                        </div>
+                        <div class="role-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer" data-role="manager">
+                            <div class="text-center">
+                                <div class="text-2xl mb-2">👨‍💼</div>
+                                <h3 class="font-semibold text-gray-800">マネージャー</h3>
+                                <p class="text-sm text-gray-600 mt-1">レポート・ユーザー管理</p>
+                            </div>
+                        </div>
+                        <div class="role-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer" data-role="staff">
+                            <div class="text-center">
+                                <div class="text-2xl mb-2">👨‍💻</div>
+                                <h3 class="font-semibold text-gray-800">スタッフ</h3>
+                                <p class="text-sm text-gray-600 mt-1">POS操作のみ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 詳細権限 -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">
+                        詳細権限
+                    </label>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="permission-item border border-gray-200 rounded-lg p-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="perm-pos" name="permissions" value="pos" class="mr-3">
+                                <div>
+                                    <div class="font-medium">POS操作</div>
+                                    <div class="text-sm text-gray-600">レジ・決済機能</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="permission-item border border-gray-200 rounded-lg p-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="perm-user-view" name="permissions" value="user_view" class="mr-3">
+                                <div>
+                                    <div class="font-medium">ユーザー参照</div>
+                                    <div class="text-sm text-gray-600">ユーザー情報表示</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="permission-item border border-gray-200 rounded-lg p-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="perm-user-edit" name="permissions" value="user_edit" class="mr-3">
+                                <div>
+                                    <div class="font-medium">ユーザー編集</div>
+                                    <div class="text-sm text-gray-600">ユーザー追加・変更・削除</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="permission-item border border-gray-200 rounded-lg p-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="perm-report-view" name="permissions" value="report_view" class="mr-3">
+                                <div>
+                                    <div class="font-medium">レポート参照</div>
+                                    <div class="text-sm text-gray-600">売上・分析レポート</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- アカウント設定 -->
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">アカウント設定</h2>
+                <div class="space-y-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" id="active" name="active" class="mr-3" checked>
+                        <span class="text-gray-700">アカウントを有効にする</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" id="password-reset" name="passwordReset" class="mr-3">
+                        <span class="text-gray-700">次回ログイン時にパスワード変更を要求する</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 操作ボタン -->
+            <div class="flex flex-col sm:flex-row gap-3 justify-end">
+                <button id="cancel-btn" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 touch-btn">
+                    キャンセル
+                </button>
+                <button id="delete-btn" class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 touch-btn">
+                    削除
+                </button>
+                <button id="save-btn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 touch-btn">
+                    保存
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ローディング表示 -->
+    <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 text-center">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
+            <p class="text-gray-700">処理中...</p>
+        </div>
+    </div>
+
+    <!-- メッセージ表示 -->
+    <div id="message" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg hidden z-50">
+        メッセージ
+    </div>
+
+    <!-- 削除確認モーダル -->
+    <div id="delete-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-md mx-4 w-full">
+            <h3 class="text-xl font-bold mb-4 text-center text-red-600">ユーザー削除確認</h3>
+            <p class="text-gray-700 mb-6 text-center">
+                このユーザーを削除しますか？<br>
+                <span class="font-semibold" id="delete-user-name">ユーザー名</span><br>
+                この操作は取り消せません。
+            </p>
+            <div class="flex gap-3">
+                <button id="delete-cancel" class="flex-1 p-3 bg-gray-300 rounded-lg touch-btn hover:bg-gray-400">
+                    キャンセル
+                </button>
+                <button id="delete-confirm" class="flex-1 p-3 bg-red-600 text-white rounded-lg touch-btn hover:bg-red-700">
+                    削除する
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript モジュール読み込み -->
+    <script type="module" src="../../../scripts/userEdit.js"></script>
+</body>
+</html>
