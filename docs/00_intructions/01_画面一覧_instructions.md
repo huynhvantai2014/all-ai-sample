@@ -14,9 +14,9 @@ description: ユーザーストーリーを分析し、必要な画面一覧を�
 - 一貫性・可追跡性・IPA標準への準拠を維持する
 
 ## インプット
-- ユーザーストーリー: docs/user_story/user-stories.md
-- テンプレート: docs/01_templates/画面一覧_Template.md
-- 画面イメージ: docs/03_画面系/画面イメージ_*.png, docs/03_画面系/画面イメージ_*.md など
+- ユーザーストーリー: `docs\02_user-stories`
+- テンプレート: `docs\01_templates\画面一覧_Template.md`
+- 画面イメージ: `docs\02_user-stories\*.png`
 - 命名規則（画面一覧用抜粋）:
 	- 画面論理名は必ず「画面」で終わる（例：ログイン画面、社員一覧・検索画面）
 	- 画面物理名は英語、短く、screen等は付けない（例：login, dashboard, employees）
